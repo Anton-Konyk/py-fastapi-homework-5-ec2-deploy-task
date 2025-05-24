@@ -12,8 +12,17 @@ handle_error() {
 # Navigate to the application directory
 cd /home/ubuntu/src/py-fastapi-homework-5-ec2-deploy-task || handle_error "Failed to navigate to the application directory."
 
-echo "🧹  Removing possibly corrupted ref and locks..."
-rm -f .git/refs/remotes/origin/main .git/refs/remotes/origin/main.lock .git/index.lock  || true
+# Ensure there is no git lock file that could block operations
+echo "🧹  Checking and removing potential Git lock files..."
+if [ -f .git/index.lock ]; then
+    echo "Found .git/index.lock — removing it..."
+    rm -f .git/index.lock || handle_error "Failed to remove .git/index.lock"
+fi
+
+rm -f .git/refs/remotes/origin/main .git/refs/remotes/origin/main.lock || true
+
+# Give the system a short break (helps with filesystem syncs in rare cases)
+sleep 1
 
 # Fetch the latest changes from the remote repository
 echo "Fetching the latest changes from the remote repository..."
