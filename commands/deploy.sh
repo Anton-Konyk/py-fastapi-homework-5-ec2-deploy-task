@@ -12,8 +12,8 @@ handle_error() {
 # Navigate to the application directory
 cd /home/ubuntu/src/py-fastapi-homework-5-ec2-deploy-task || handle_error "Failed to navigate to the application directory."
 
-echo "🧹  Removing possibly corrupted ref..."
-rm -f .git/refs/remotes/origin/main .git/refs/remotes/origin/main.lock || true
+echo "🧹  Removing possibly corrupted ref and locks..."
+rm -f .git/refs/remotes/origin/main .git/refs/remotes/origin/main.lock .git/index.lock  || true
 
 # Fetch the latest changes from the remote repository
 echo "Fetching the latest changes from the remote repository..."
