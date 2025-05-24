@@ -33,4 +33,4 @@ echo "🚀 Building and running Docker containers..."
 docker compose -f docker-compose-prod.yml up -d --build --force-recreate --remove-orphans || handle_error "Failed to build and run Docker containers using docker-compose-prod.yml."
 
 # Print a success message upon successful deployment
-echo "Deployment completed successfully."
+echo "✅ Deployment completed successfully."
